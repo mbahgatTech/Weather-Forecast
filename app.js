@@ -6,7 +6,8 @@ const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
 const app = express();
-const apiKey = process.argv[2];
+const apiKey = b7977a6f9436fa283a943562f9bdb499;
+const port = process.env.PORT || 5000
 
 app.use(fileUpload());
 app.use(express.static(__dirname + '/uploads'));
@@ -92,4 +93,4 @@ app.get('/forecast', (req, res) => {
     }
 });
     
-app.listen(5000);
+app.listen(port);
