@@ -3,7 +3,7 @@ $(function() {
 
     // default location is the CN Tower, Toronto
     let location = {
-        "lon":79.3871, 
+        "lon":-79.3871, 
         "lat":43.6426, 
         "city":"Toronto", 
         "regionName":"Ontario"
