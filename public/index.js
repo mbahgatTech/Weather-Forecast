@@ -10,7 +10,8 @@ $(function() {
     };
     
     // API calls are sent every minute to update the forecast
-    getIP();
+    // getIP();
+    getForecast(location);
     
     // once the forecast has been given, show the values
     // in the gui
@@ -76,7 +77,7 @@ $(function() {
         else if(forecast.current.weather[0].main === 'Clouds' && $('#myVideo').attr('src') != '1013716848.mp4') {
             $('#myVideo').attr('src', '1013716848.mp4');
         }
-        else if(forecast.current.weather[0].main === '') {
+        else if($('#myVideo').attr('src') === '') {
             $('#myVideo').attr('src', '1013716848.mp4');
         }
 
