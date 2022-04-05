@@ -6,7 +6,7 @@ const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
 const app = express();
-const apiKey = 'b7977a6f9436fa283a943562f9bdb499';
+const apiKey = '12f209085f868d7f472980d4e0f0d559';
 const port = process.env.PORT || 5000
 
 app.use(fileUpload());
@@ -27,19 +27,6 @@ app.get('/client-code',(req,res) => {
     res.sendFile(__dirname + '/public/index.js');
 });
 
-//Respond to GET requests for files in the media/ directory
-app.get('/media/:name', function(req , res){
-    fs.stat('media/' + req.params.name, function(err, stat) {
-        if(err == null) {
-            res.sendFile(path.join(__dirname+'/media/' + req.params.name));
-        } 
-        else {
-            console.log('Error in file downloading route: '+err);
-            res.send('');
-        }
-    });
-});
-
 // simple request for the forecast weather
 app.get('/forecast', (req, res) => {
     let location = req.query;
@@ -56,7 +43,7 @@ app.get('/forecast', (req, res) => {
                 // create an array of days and include the relevant weather 
                 // informationfor of each day to our app 
                 returnData.daily = [];
-                for (let curr of response.data.daily) {
+                for (let curr of response.data.daily) { 
                     let day = {};
                     day.humidity = curr.humidity;
                     day.max = curr.temp.max;
@@ -82,14 +69,18 @@ app.get('/forecast', (req, res) => {
             }
             catch(err) {
                 console.log(err);
-                res.status(500).send(err);
+                throw err;
             }
     
+        }).catch(function (error) {
+            console.log('heeerrr');
+            console.log(error.message);
+            return res.status(500).send(error.message);
         });
     }
     catch (e) {
         console.log(e);
-        res.status(500).send(e);
+        return res.status(500).send(e);
     }
 });
     

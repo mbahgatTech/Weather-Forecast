@@ -3,7 +3,7 @@ $(function() {
 
     // default location is the CN Tower, Toronto
     let location = {
-        "lon":-79.3871, 
+        "lon":79.3871, 
         "lat":43.6426, 
         "city":"Toronto", 
         "regionName":"Ontario"
@@ -18,9 +18,7 @@ $(function() {
         if (!settings.url.includes("/forecast")) {
             return;
         }
-        
-        console.log(location);
-        console.log(forecast);
+
         $('#temp-val').text(`${Math.round(forecast.current.temp)} °C`);
         $('#place-val').text(`${location.city}, ${location.regionName}`);
         $('#state-val').text(`${forecast.current.weather[0].main}`);
@@ -78,7 +76,7 @@ $(function() {
         else if(forecast.current.weather[0].main === 'Clouds' && $('#myVideo').attr('src') != '1013716848.mp4') {
             $('#myVideo').attr('src', '1013716848.mp4');
         }
-        else if($('#myVideo').attr('src') === '') {
+        else if(forecast.current.weather[0].main === '') {
             $('#myVideo').attr('src', '1013716848.mp4');
         }
 
