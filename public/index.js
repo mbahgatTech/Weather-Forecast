@@ -10,8 +10,7 @@ $(function() {
     };
     
     // API calls are sent every minute to update the forecast
-    // getIP();
-    getForecast(location);
+    getIP();
     
     // once the forecast has been given, show the values
     // in the gui
