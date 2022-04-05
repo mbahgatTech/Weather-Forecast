@@ -1,10 +1,15 @@
 'use strict';
 
-const axios = require('axios');
 const express = require('express');
-const { data } = require('jquery');
+const fileUpload = require('express-fileupload');
+const fs = require('fs');
+const path = require('path');
+const axios = require('axios');
 const app = express();
 const apiKey = 'b7977a6f9436fa283a943562f9bdb499';
+
+app.use(fileUpload());
+app.use(express.static(__dirname + '/media'));
 
 // send html page
 app.get('/', (req, res) => {
@@ -19,6 +24,19 @@ app.get('/styles', (req,res) => {
 // send client side JS code
 app.get('/client-code',(req,res) => {
     res.sendFile(__dirname + '/public/index.js');
+});
+
+//Respond to GET requests for files in the media/ directory
+app.get('/media/:name', function(req , res){
+    fs.stat('media/' + req.params.name, function(err, stat) {
+        if(err == null) {
+            res.sendFile(path.join(__dirname+'/media/' + req.params.name));
+        } 
+        else {
+            console.log('Error in file downloading route: '+err);
+            res.send('');
+        }
+    });
 });
 
 // simple request for the forecast weather
