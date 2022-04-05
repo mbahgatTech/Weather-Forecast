@@ -15,12 +15,18 @@
     <link rel="shortcut icon" href="#">
 </head>
 <body>
+    <video autoplay muted loop id="myVideo">
+        <source src="" type="video/mp4">
+    </video>
     <div class="container-fluid text-center">
-        <div class="col-xs-12" id="curr-temp">
+        <div id="curr-temp">
             <h1 id="temp-val"></h1>
         </div>
-        <div class="col-xs-12" id="curr-place">
+        <div id="curr-place">
             <h1 id="place-val"></h1>
+        </div>
+        <div>
+            <h1 id="state-val"></h1>
         </div>
     </div>
     <div class="container file-log">

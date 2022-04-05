@@ -6,10 +6,10 @@ const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
 const app = express();
-const apiKey = 'b7977a6f9436fa283a943562f9bdb499';
+const apiKey = process.argv[2];
 
 app.use(fileUpload());
-app.use(express.static(__dirname + '/media'));
+app.use(express.static(__dirname + '/uploads'));
 
 // send html page
 app.get('/', (req, res) => {
@@ -42,7 +42,7 @@ app.get('/media/:name', function(req , res){
 // simple request for the forecast weather
 app.get('/forecast', (req, res) => {
     let location = req.query;
-    console.log(location);
+    let returnData = {};
 
     // make axios call to OpenWeather API for our latitude and longitude
     // to get the forecast
@@ -52,8 +52,6 @@ app.get('/forecast', (req, res) => {
             url: `https://api.openweathermap.org/data/2.5/onecall?lat=${location.lat}&lon=${location.lon}&units=metric&appid=` + apiKey
         }).then(function (response) {
             try {
-                let returnData = {};
-    
                 // create an array of days and include the relevant weather 
                 // informationfor of each day to our app 
                 returnData.daily = [];
@@ -79,18 +77,18 @@ app.get('/forecast', (req, res) => {
                 returnData.current.clouds = response.data.current.clouds;
                 returnData.current.weather = response.data.current.weather;
                 
-                res.send(returnData);
+                return res.status(200).send(returnData);
             }
             catch(err) {
                 console.log(err);
-                res.send(err);
+                res.status(500).send(err);
             }
     
         });
     }
     catch (e) {
         console.log(e);
-        res.send(e);
+        res.status(500).send(e);
     }
 });
     
