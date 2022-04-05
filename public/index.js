@@ -99,7 +99,7 @@ $(function() {
                 getForecast(location);
             },
             error: function(response) {
-                getIP();
+                getForecast(location);
                 console.log('Failed to fetch the user\'s location.');
             }
         });
